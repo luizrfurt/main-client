@@ -2,7 +2,7 @@ import { Button, TextInput } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
 
-export default function Home() {
+export default function Index() {
   return (
     <div className={styles.containerClass}>
       <div className={styles.leftDivClass}></div>
@@ -34,14 +34,16 @@ export default function Home() {
                 required
               />
             </div>
-            <Button
-              color="blue"
-              size="sm"
-              type="submit"
-              className={styles.enterButton}
-            >
-              Entrar
-            </Button>
+            <Link href="/home" passHref>
+              <Button
+                color="blue"
+                size="sm"
+                type="submit"
+                className={styles.enterButton}
+              >
+                Entrar
+              </Button>
+            </Link>
             <Link href="#" passHref legacyBehavior>
               <a className={styles.forgotPassword}>Esqueci minha senha</a>
             </Link>
