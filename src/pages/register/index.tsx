@@ -2,7 +2,7 @@ import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
 
-export default function Home() {
+export default function Register() {
   return (
     <div className={styles.containerClass}>
       <div className={styles.leftDivClass}></div>
