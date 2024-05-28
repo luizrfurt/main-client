@@ -1,4 +1,4 @@
-import { Button, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import Link from "next/link";
 import React from "react";
 
@@ -19,6 +19,24 @@ export default function Home() {
             <div>
               <TextInput
                 sizing="sm"
+                id="name"
+                type="text"
+                placeholder="Nome"
+                required
+              />
+            </div>
+            <div>
+              <TextInput
+                sizing="sm"
+                id="email"
+                type="email"
+                placeholder="Email"
+                required
+              />
+            </div>
+            <div>
+              <TextInput
+                sizing="sm"
                 id="login"
                 type="text"
                 placeholder="Login"
@@ -34,23 +52,33 @@ export default function Home() {
                 required
               />
             </div>
+            <div>
+              <TextInput
+                sizing="sm"
+                id="confirmPassword"
+                type="password"
+                placeholder="Confirmação de senha"
+                required
+              />
+            </div>
+            <div className={styles.checkboxContainer}>
+              <Checkbox id="agree" />
+              <Label htmlFor="agree" className={styles.checkboxLabel}>
+                Aceito os&nbsp;
+                <Link href="#" className={styles.termsLink}>
+                  termos de uso e condições.
+                </Link>
+              </Label>
+            </div>
             <Button
               color="blue"
               size="sm"
               type="submit"
               className={styles.enterButton}
             >
-              Entrar
+              Cadastrar
             </Button>
-            <Link href="#" passHref legacyBehavior>
-              <a className={styles.forgotPassword}>Esqueci minha senha</a>
-            </Link>
             <hr className={styles.divider} />
-            <Link href="/register" passHref>
-              <Button color="light" size="sm" className={styles.registerButton}>
-                Cadastrar-se
-              </Button>
-            </Link>
           </form>
           <footer className={styles.footer}>
             <p>&copy; 2024 Prime. Todos os direitos reservados.</p>
@@ -71,9 +99,10 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  enterButton: "bg-blue-900 w-full",
-  forgotPassword: "text-blue-500 underline",
-  registerButton: "bg-gray-200 w-full",
+  enterButton: "bg-blue-900",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
+  checkboxContainer: "flex items-center",
+  checkboxLabel: "flex items-center ml-2",
+  termsLink: "text-cyan-600 hover:underline dark:text-cyan-500",
 };
