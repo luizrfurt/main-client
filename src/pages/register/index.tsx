@@ -1,8 +1,10 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 
 export default function Register() {
+  const [openTerms, setOpenTerms] = useState(false);
+
   return (
     <div className={styles.containerClass}>
       <div className={styles.leftDivClass}></div>
@@ -65,7 +67,11 @@ export default function Register() {
               <Checkbox id="agree" />
               <Label htmlFor="agree" className={styles.checkboxLabel}>
                 Aceito os&nbsp;
-                <Link href="#" className={styles.termsLink}>
+                <Link
+                  href=""
+                  onClick={() => setOpenTerms(true)}
+                  className={styles.termsLink}
+                >
                   termos de uso e condições.
                 </Link>
               </Label>
@@ -85,6 +91,26 @@ export default function Register() {
           </footer>
         </div>
       </div>
+
+      {openTerms && (
+        <Modal show={true} onClose={() => setOpenTerms(false)}>
+          <Modal.Header>Termos e condições</Modal.Header>
+          <Modal.Body>
+            <p>
+              Reservamo-nos o direito de modificar estes Termos e Condições a
+              qualquer momento. Quaisquer mudanças serão efetivas imediatamente
+              após a publicação no site. Seu uso contínuo do site após a
+              publicação das mudanças constitui sua aceitação dos Termos e
+              Condições modificados.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => setOpenTerms(false)} color="failure">
+              Voltar
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }
