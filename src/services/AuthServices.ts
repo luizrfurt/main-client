@@ -1,23 +1,15 @@
-import axios from "axios";
+import { axiosInstance } from "../utils/AxiosInstance";
 
 const credentials = {
   withCredentials: true,
 };
 
-const apiUrl = process.env.NEXT_PUBLIC_API_URL
-  ? process.env.NEXT_PUBLIC_API_URL
-  : "";
-
 export const login = async (loginValue: string, passwordValue: string) => {
   try {
-    const response = await axios.post(
-      `${apiUrl}/main/auth/login`,
-      {
-        login: loginValue,
-        password: passwordValue,
-      },
-      credentials
-    );
+    const response = await axiosInstance.post("/main/auth/login", {
+      login: loginValue,
+      password: passwordValue,
+    });
 
     return response.data;
   } catch (err: any) {
@@ -27,11 +19,7 @@ export const login = async (loginValue: string, passwordValue: string) => {
 
 export const logout = async () => {
   try {
-    const response = await axios.post(
-      `${apiUrl}/main/auth/logout`,
-      {},
-      credentials
-    );
+    const response = await axiosInstance.post("/main/auth/logout");
     return response.data;
   } catch (err: any) {
     return err.response.data;
