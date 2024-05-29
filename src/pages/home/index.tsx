@@ -1,3 +1,6 @@
+import React from "react";
+import router from "next/router";
+import { logout } from "@/services/AuthServices";
 import {
   Avatar,
   Dropdown,
@@ -8,9 +11,16 @@ import {
   NavbarBrand,
   NavbarToggle,
 } from "flowbite-react";
-import React from "react";
 
 export default function Home() {
+  const handleLogout = async () => {
+    const result = await logout();
+    alert(result.message);
+    if (result.status === "success") {
+      router.push("/");
+    }
+  };
+
   return (
     <div>
       <Navbar fluid className={styles.navbar}>
@@ -41,7 +51,7 @@ export default function Home() {
             <DropdownItem href="/home">Home</DropdownItem>
             <DropdownItem>Configurações</DropdownItem>
             <DropdownDivider />
-            <DropdownItem href="/">Sair</DropdownItem>
+            <DropdownItem onClick={handleLogout}>Sair</DropdownItem>
           </Dropdown>
           <NavbarToggle />
         </div>

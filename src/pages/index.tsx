@@ -1,14 +1,30 @@
-import { Button, TextInput } from "flowbite-react";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { Button, TextInput } from "flowbite-react";
+import { login } from "../services/AuthServices";
 
 export default function Index() {
+  const router = useRouter();
+
+  const handleLogin = async (event: any) => {
+    event.preventDefault();
+    const loginValue = event.target.login.value;
+    const passwordValue = event.target.password.value;
+
+    const result = await login(loginValue, passwordValue);
+    alert(result.message);
+    if (result.status === "success") {
+      router.push("/home");
+    }
+  };
+
   return (
     <div className={styles.containerClass}>
       <div className={styles.leftDivClass}></div>
       <div className={styles.rightDivClass}>
         <div className={styles.card}>
-          <form className={styles.form}>
+          <form className={styles.form} onSubmit={handleLogin}>
             <div className={styles.avatarContainer}>
               <img
                 src="https://prime-repo.s3.sa-east-1.amazonaws.com/main/users/default-user-photo.png"
@@ -20,6 +36,7 @@ export default function Index() {
               <TextInput
                 sizing="sm"
                 id="login"
+                name="login"
                 type="text"
                 placeholder="Login"
                 required
@@ -29,21 +46,20 @@ export default function Index() {
               <TextInput
                 sizing="sm"
                 id="password"
+                name="password"
                 type="password"
                 placeholder="Senha"
                 required
               />
             </div>
-            <Link href="/home" passHref>
-              <Button
-                color="blue"
-                size="sm"
-                type="submit"
-                className={styles.enterButton}
-              >
-                Entrar
-              </Button>
-            </Link>
+            <Button
+              color="blue"
+              size="sm"
+              type="submit"
+              className={styles.loginButton}
+            >
+              Entrar
+            </Button>
             <Link href="#" passHref legacyBehavior>
               <a className={styles.forgotPassword}>Esqueci minha senha</a>
             </Link>
@@ -73,9 +89,10 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  enterButton: "bg-blue-900 w-full",
+  loginButton: "bg-blue-900 w-full",
   forgotPassword: "text-blue-500 underline",
   registerButton: "bg-gray-200 w-full",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
+  errorMessage: "text-red-500 text-center mt-2",
 };
