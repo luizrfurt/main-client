@@ -10,8 +10,8 @@ interface Props {
 
 export const LabelComponent: React.FC<Props> = ({
   htmlFor,
-  className,
   value,
+  className,
   children,
 }) => {
   return (
