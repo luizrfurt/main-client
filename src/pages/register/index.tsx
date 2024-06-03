@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button, Checkbox, Modal, TextInput } from "flowbite-react";
+import { Checkbox, Modal, TextInput } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
+import { ButtonComponent } from "@/components/ButtonComponent";
 import { termsConditions } from "../../services/TermsConditionsServices";
 
 export default function Register() {
@@ -93,14 +94,14 @@ export default function Register() {
                 </Link>
               </LabelComponent>
             </div>
-            <Button
+            <ButtonComponent
               color="blue"
               size="sm"
               type="submit"
               className={styles.enterButton}
             >
               Cadastrar
-            </Button>
+            </ButtonComponent>
             <hr className={styles.divider} />
           </form>
           <footer className={styles.footer}>
@@ -116,9 +117,7 @@ export default function Register() {
             <pre className="font-sans text-xs">{termsMessage}</pre>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={() => setOpenTerms(false)} color="failure">
-              Voltar
-            </Button>
+            <p>&copy; 2024 Prime. Todos os direitos reservados.</p>
           </Modal.Footer>
         </Modal>
       )}
@@ -136,7 +135,7 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  enterButton: "bg-blue-900",
+  enterButton: "bg-blue-900 w-full",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
   checkboxContainer: "flex items-center",

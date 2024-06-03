@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { Button, TextInput } from "flowbite-react";
+import { TextInput } from "flowbite-react";
+import { ButtonComponent } from "@/components/ButtonComponent";
 import { login } from "../services/AuthServices";
 
 export default function Index() {
@@ -56,8 +57,7 @@ export default function Index() {
                 onChange={(e) => setPasswordValue(e.target.value)}
               />
             </div>
-            <Button
-              id="loggedIn"
+            <ButtonComponent
               color="blue"
               size="sm"
               type="submit"
@@ -65,15 +65,15 @@ export default function Index() {
               onClick={handleLoggedIn}
             >
               Entrar
-            </Button>
+            </ButtonComponent>
             <Link href="#" passHref legacyBehavior>
               <a className={styles.forgotPassword}>Esqueci minha senha</a>
             </Link>
             <hr className={styles.divider} />
             <Link href="/register" passHref>
-              <Button color="light" size="sm" className={styles.registerButton}>
+              <ButtonComponent color="light" size="sm" className={styles.registerButton}>
                 Cadastrar-se
-              </Button>
+              </ButtonComponent>
             </Link>
           </form>
           <footer className={styles.footer}>
