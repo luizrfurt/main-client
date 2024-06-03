@@ -1,9 +1,22 @@
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import React, { useState } from "react";
+import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { termsConditions } from "../../services/TermsConditionsServices";
 
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
+  const [termsMessage, setTermsMessage] = useState<string>("");
+
+  useEffect(() => {
+    const fetchTerms = async () => {
+      const result = await termsConditions();
+      setTermsMessage(result.data[0].content);
+    };
+
+    if (openTerms) {
+      fetchTerms();
+    }
+  }, [openTerms]);
 
   return (
     <div className={styles.containerClass}>
@@ -69,10 +82,13 @@ export default function Register() {
                 Aceito os&nbsp;
                 <Link
                   href=""
-                  onClick={() => setOpenTerms(true)}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOpenTerms(true);
+                  }}
                   className={styles.termsLink}
                 >
-                  termos de uso e condições.
+                  termos e condições.
                 </Link>
               </Label>
             </div>
@@ -96,13 +112,7 @@ export default function Register() {
         <Modal show={true} onClose={() => setOpenTerms(false)}>
           <Modal.Header>Termos e condições</Modal.Header>
           <Modal.Body>
-            <p>
-              Reservamo-nos o direito de modificar estes Termos e Condições a
-              qualquer momento. Quaisquer mudanças serão efetivas imediatamente
-              após a publicação no site. Seu uso contínuo do site após a
-              publicação das mudanças constitui sua aceitação dos Termos e
-              Condições modificados.
-            </p>
+            <pre className="font-sans text-xs">{termsMessage}</pre>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={() => setOpenTerms(false)} color="failure">
