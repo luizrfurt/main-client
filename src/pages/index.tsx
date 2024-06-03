@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Button, TextInput } from "flowbite-react";
@@ -6,11 +6,11 @@ import { login } from "../services/AuthServices";
 
 export default function Index() {
   const router = useRouter();
+  const [loginValue, setLoginValue] = useState<string>("");
+  const [passwordValue, setPasswordValue] = useState<string>("");
 
-  const handleLogin = async (event: any) => {
-    event.preventDefault();
-    const loginValue = event.target.login.value;
-    const passwordValue = event.target.password.value;
+  const handleLoggedIn = async (e: React.FormEvent) => {
+    e.preventDefault();
 
     const result = await login(loginValue, passwordValue);
     alert(result.message);
@@ -24,7 +24,7 @@ export default function Index() {
       <div className={styles.leftDivClass}></div>
       <div className={styles.rightDivClass}>
         <div className={styles.card}>
-          <form className={styles.form} onSubmit={handleLogin}>
+          <form className={styles.form}>
             <div className={styles.avatarContainer}>
               <img
                 src="https://prime-repo.s3.sa-east-1.amazonaws.com/main/users/default-user-photo.png"
@@ -34,29 +34,35 @@ export default function Index() {
             </div>
             <div>
               <TextInput
+                value={loginValue}
                 sizing="sm"
                 id="login"
                 name="login"
                 type="text"
                 placeholder="Login"
                 required
+                onChange={(e) => setLoginValue(e.target.value)}
               />
             </div>
             <div>
               <TextInput
+                value={passwordValue}
                 sizing="sm"
                 id="password"
                 name="password"
                 type="password"
                 placeholder="Senha"
                 required
+                onChange={(e) => setPasswordValue(e.target.value)}
               />
             </div>
             <Button
+              id="loggedIn"
               color="blue"
               size="sm"
               type="submit"
               className={styles.loginButton}
+              onClick={handleLoggedIn}
             >
               Entrar
             </Button>
