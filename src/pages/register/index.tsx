@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Button, Checkbox, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Checkbox, Modal, TextInput } from "flowbite-react";
+import { LabelComponent } from "@/components/LabelComponent";
 import { termsConditions } from "../../services/TermsConditionsServices";
 
 export default function Register() {
@@ -78,7 +79,7 @@ export default function Register() {
             </div>
             <div className={styles.checkboxContainer}>
               <Checkbox id="agree" />
-              <Label htmlFor="agree" className={styles.checkboxLabel}>
+              <LabelComponent htmlFor="agree" className={styles.checkboxLabel}>
                 Aceito os&nbsp;
                 <Link
                   href=""
@@ -90,7 +91,7 @@ export default function Register() {
                 >
                   termos e condições.
                 </Link>
-              </Label>
+              </LabelComponent>
             </div>
             <Button
               color="blue"
