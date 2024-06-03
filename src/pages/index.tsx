@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { TextInput } from "flowbite-react";
 import { ButtonComponent } from "@/components/ButtonComponent";
+import { InputComponent } from "@/components/InputComponent";
 import { login } from "../services/AuthServices";
 
 export default function Index() {
@@ -34,27 +34,23 @@ export default function Index() {
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
                 value={loginValue}
                 sizing="sm"
-                id="login"
-                name="login"
                 type="text"
                 placeholder="Login"
-                required
                 onChange={(e) => setLoginValue(e.target.value)}
+                required={true}
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
                 value={passwordValue}
                 sizing="sm"
-                id="password"
-                name="password"
                 type="password"
                 placeholder="Senha"
-                required
                 onChange={(e) => setPasswordValue(e.target.value)}
+                required={true}
               />
             </div>
             <ButtonComponent
@@ -71,7 +67,11 @@ export default function Index() {
             </Link>
             <hr className={styles.divider} />
             <Link href="/register" passHref>
-              <ButtonComponent color="light" size="sm" className={styles.registerButton}>
+              <ButtonComponent
+                color="light"
+                size="sm"
+                className={styles.registerButton}
+              >
                 Cadastrar-se
               </ButtonComponent>
             </Link>

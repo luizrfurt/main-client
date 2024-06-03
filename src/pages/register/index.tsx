@@ -4,6 +4,7 @@ import { Checkbox, Modal, TextInput } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { termsConditions } from "../../services/TermsConditionsServices";
+import { InputComponent } from "@/components/InputComponent";
 
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
@@ -34,47 +35,52 @@ export default function Register() {
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
+                value=""
                 sizing="sm"
-                id="name"
                 type="text"
                 placeholder="Nome"
+                onChange={(e) => e.target.value}
                 required
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
+                value=""
                 sizing="sm"
-                id="email"
                 type="email"
                 placeholder="Email"
+                onChange={(e) => e.target.value}
                 required
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
+                value=""
                 sizing="sm"
-                id="login"
                 type="text"
                 placeholder="Login"
+                onChange={(e) => e.target.value}
                 required
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
+                value=""
                 sizing="sm"
-                id="password"
                 type="password"
                 placeholder="Senha"
+                onChange={(e) => e.target.value}
                 required
               />
             </div>
             <div>
-              <TextInput
+              <InputComponent
+                value=""
                 sizing="sm"
-                id="confirmPassword"
                 type="password"
                 placeholder="Confirmação de senha"
+                onChange={(e) => e.target.value}
                 required
               />
             </div>
