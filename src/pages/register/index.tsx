@@ -9,6 +9,19 @@ import { InputComponent } from "@/components/InputComponent";
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
   const [termsMessage, setTermsMessage] = useState<string>("");
+  const [user, setUser] = useState<{
+    name: string;
+    email: string;
+    login: string;
+    password: string;
+    confirmPassword: string;
+  }>({
+    name: "",
+    email: "",
+    login: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   useEffect(() => {
     const fetchTerms = async () => {
@@ -20,6 +33,12 @@ export default function Register() {
       fetchTerms();
     }
   }, [openTerms]);
+
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    alert(user);
+  };
 
   return (
     <div className={styles.containerClass}>
@@ -36,51 +55,53 @@ export default function Register() {
             </div>
             <div>
               <InputComponent
-                value=""
+                value={user.name}
                 sizing="sm"
                 type="text"
                 placeholder="Nome"
-                onChange={(e) => e.target.value}
+                onChange={(e) => setUser({ ...user, name: e.target.value })}
                 required
               />
             </div>
             <div>
               <InputComponent
-                value=""
+                value={user.email}
                 sizing="sm"
                 type="email"
                 placeholder="Email"
-                onChange={(e) => e.target.value}
+                onChange={(e) => setUser({ ...user, email: e.target.value })}
                 required
               />
             </div>
             <div>
               <InputComponent
-                value=""
+                value={user.login}
                 sizing="sm"
                 type="text"
                 placeholder="Login"
-                onChange={(e) => e.target.value}
+                onChange={(e) => setUser({ ...user, login: e.target.value })}
                 required
               />
             </div>
             <div>
               <InputComponent
-                value=""
+                value={user.password}
                 sizing="sm"
                 type="password"
                 placeholder="Senha"
-                onChange={(e) => e.target.value}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
                 required
               />
             </div>
             <div>
               <InputComponent
-                value=""
+                value={user.confirmPassword}
                 sizing="sm"
                 type="password"
                 placeholder="Confirmação de senha"
-                onChange={(e) => e.target.value}
+                onChange={(e) =>
+                  setUser({ ...user, confirmPassword: e.target.value })
+                }
                 required
               />
             </div>
@@ -105,6 +126,7 @@ export default function Register() {
               size="sm"
               type="submit"
               className={styles.enterButton}
+              onClick={handleRegister}
             >
               Cadastrar
             </ButtonComponent>

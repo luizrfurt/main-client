@@ -7,13 +7,15 @@ import { login } from "../services/AuthServices";
 
 export default function Index() {
   const router = useRouter();
-  const [loginValue, setLoginValue] = useState<string>("");
-  const [passwordValue, setPasswordValue] = useState<string>("");
+  const [user, setUser] = useState<{ login: string; password: string }>({
+    login: "",
+    password: "",
+  });
 
-  const handleLoggedIn = async (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const result = await login(loginValue, passwordValue);
+    const result = await login(user.login, user.password);
     alert(result.message);
     if (result.status === "success") {
       router.push("/home");
@@ -35,21 +37,21 @@ export default function Index() {
             </div>
             <div>
               <InputComponent
-                value={loginValue}
+                value={user.login}
                 sizing="sm"
                 type="text"
                 placeholder="Login"
-                onChange={(e) => setLoginValue(e.target.value)}
+                onChange={(e) => setUser({ ...user, login: e.target.value })}
                 required={true}
               />
             </div>
             <div>
               <InputComponent
-                value={passwordValue}
+                value={user.password}
                 sizing="sm"
                 type="password"
                 placeholder="Senha"
-                onChange={(e) => setPasswordValue(e.target.value)}
+                onChange={(e) => setUser({ ...user, password: e.target.value })}
                 required={true}
               />
             </div>
@@ -58,7 +60,7 @@ export default function Index() {
               size="sm"
               type="submit"
               className={styles.loginButton}
-              onClick={handleLoggedIn}
+              onClick={handleLogin}
             >
               Entrar
             </ButtonComponent>
