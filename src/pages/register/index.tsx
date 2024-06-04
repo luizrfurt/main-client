@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Checkbox, Modal, TextInput } from "flowbite-react";
+import router from "next/router";
+import { Checkbox, Modal } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { termsConditions } from "../../services/TermsConditionsServices";
 import { InputComponent } from "@/components/InputComponent";
+import { login, register } from "@/services/AuthServices";
 
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
   const [termsMessage, setTermsMessage] = useState<string>("");
-  const [user, setUser] = useState<{
+  const [newUser, setNewUser] = useState<{
     name: string;
     email: string;
     login: string;
     password: string;
-    confirmPassword: string;
   }>({
     name: "",
     email: "",
     login: "",
     password: "",
-    confirmPassword: "",
   });
 
   useEffect(() => {
@@ -35,9 +35,24 @@ export default function Register() {
   }, [openTerms]);
 
   const handleRegister = async (e: React.FormEvent) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    alert(user);
+      const resultRegister = await register(newUser);
+
+      if (resultRegister.status === "success") {
+        const resultLogin = await login(newUser);
+        if (resultLogin.status === "success") {
+          router.push("/home");
+        } else {
+          alert(resultLogin.message);
+        }
+      } else {
+        alert(resultRegister.message);
+      }
+    } catch (err: any) {
+      alert(err.message);
+    }
   };
 
   return (
@@ -55,52 +70,48 @@ export default function Register() {
             </div>
             <div>
               <InputComponent
-                value={user.name}
+                value={newUser.name}
                 sizing="sm"
                 type="text"
                 placeholder="Nome"
-                onChange={(e) => setUser({ ...user, name: e.target.value })}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, name: e.target.value })
+                }
                 required
               />
             </div>
             <div>
               <InputComponent
-                value={user.email}
+                value={newUser.email}
                 sizing="sm"
                 type="email"
                 placeholder="Email"
-                onChange={(e) => setUser({ ...user, email: e.target.value })}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, email: e.target.value })
+                }
                 required
               />
             </div>
             <div>
               <InputComponent
-                value={user.login}
+                value={newUser.login}
                 sizing="sm"
                 type="text"
                 placeholder="Login"
-                onChange={(e) => setUser({ ...user, login: e.target.value })}
+                onChange={(e) =>
+                  setNewUser({ ...newUser, login: e.target.value })
+                }
                 required
               />
             </div>
             <div>
               <InputComponent
-                value={user.password}
+                value={newUser.password}
                 sizing="sm"
                 type="password"
                 placeholder="Senha"
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
-                required
-              />
-            </div>
-            <div>
-              <InputComponent
-                value={user.confirmPassword}
-                sizing="sm"
-                type="password"
-                placeholder="Confirmação de senha"
                 onChange={(e) =>
-                  setUser({ ...user, confirmPassword: e.target.value })
+                  setNewUser({ ...newUser, password: e.target.value })
                 }
                 required
               />

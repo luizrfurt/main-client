@@ -7,18 +7,27 @@ import { login } from "../services/AuthServices";
 
 export default function Index() {
   const router = useRouter();
-  const [user, setUser] = useState<{ login: string; password: string }>({
+  const [existingUser, setExistingUser] = useState<{
+    login: string;
+    password: string;
+  }>({
     login: "",
     password: "",
   });
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
 
-    const result = await login(user.login, user.password);
-    alert(result.message);
-    if (result.status === "success") {
-      router.push("/home");
+      const result = await login(existingUser);
+
+      if (result.status === "success") {
+        router.push("/home");
+      } else {
+        alert(result.message);
+      }
+    } catch (err: any) {
+      alert(err.message);
     }
   };
 
@@ -37,21 +46,25 @@ export default function Index() {
             </div>
             <div>
               <InputComponent
-                value={user.login}
+                value={existingUser.login}
                 sizing="sm"
                 type="text"
                 placeholder="Login"
-                onChange={(e) => setUser({ ...user, login: e.target.value })}
+                onChange={(e) =>
+                  setExistingUser({ ...existingUser, login: e.target.value })
+                }
                 required={true}
               />
             </div>
             <div>
               <InputComponent
-                value={user.password}
+                value={existingUser.password}
                 sizing="sm"
                 type="password"
                 placeholder="Senha"
-                onChange={(e) => setUser({ ...user, password: e.target.value })}
+                onChange={(e) =>
+                  setExistingUser({ ...existingUser, password: e.target.value })
+                }
                 required={true}
               />
             </div>
