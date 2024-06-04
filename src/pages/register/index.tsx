@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import router from "next/router";
-import { Checkbox, Modal } from "flowbite-react";
+import { Checkbox, Modal, Toast } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { termsConditions } from "../../services/TermsConditionsServices";
 import { InputComponent } from "@/components/InputComponent";
 import { login, register } from "@/services/AuthServices";
+import { HiCheck, HiX } from "react-icons/hi";
 
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
   const [termsMessage, setTermsMessage] = useState<string>("");
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState("");
   const [newUser, setNewUser] = useState<{
     name: string;
     email: string;
@@ -48,15 +52,37 @@ export default function Register() {
           alert(resultLogin.message);
         }
       } else {
-        alert(resultRegister.message);
+        setToastMessage(resultRegister.message);
+        setToastType("error")
       }
     } catch (err: any) {
-      alert(err.message);
+      setToastMessage(err.message);
+      setToastType("error");
+    } finally {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 7000);
+    }
+  };
+
+  const renderToastIcon = () => {
+    if (toastType === "success") {
+      return <HiCheck className={styles.successIcon} />;
+    } else if (toastType === "error") {
+      return <HiX className={styles.errorIcon} />;
     }
   };
 
   return (
     <div className={styles.containerClass}>
+      {showToast && (
+        <div className={styles.toastContainer}>
+          <Toast>
+            <div className={styles.toastClass}>{renderToastIcon()}</div>
+            <div className={styles.messageClass}>{toastMessage}</div>
+            <Toast.Toggle />
+          </Toast>
+        </div>
+      )}
       <div className={styles.leftDivClass}></div>
       <div className={styles.rightDivClass}>
         <div className={styles.card}>
@@ -180,4 +206,11 @@ const styles = {
   checkboxContainer: "flex items-center",
   checkboxLabel: "flex items-center ml-2",
   termsLink: "text-cyan-600 hover:underline dark:text-cyan-500",
+  toastContainer: "fixed top-4 right-4 z-50",
+  toastClass:
+    "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
+  iconClass: "h-5 w-5",
+  messageClass: "ml-3 text-sm font-normal",
+  successIcon: "h-7 w-7 text-green-200 rounded-lg",
+  errorIcon: "h-7 w-7 text-red-500 bg-red-200 rounded-lg",
 };

@@ -15,7 +15,6 @@ import {
 export default function Home() {
   const handleLogout = async () => {
     const result = await logout();
-    alert(result.message);
     if (result.status === "success") {
       router.push("/");
     }

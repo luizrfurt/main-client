@@ -3,36 +3,56 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { InputComponent } from "@/components/InputComponent";
+import { Toast } from "flowbite-react";
+import { HiX, HiCheck } from "react-icons/hi";
 import { login } from "../services/AuthServices";
 
 export default function Index() {
   const router = useRouter();
-  const [existingUser, setExistingUser] = useState<{
-    login: string;
-    password: string;
-  }>({
-    login: "",
-    password: "",
-  });
+  const [existingUser, setExistingUser] = useState({ login: "", password: "" });
+  const [toastMessage, setToastMessage] = useState("");
+  const [showToast, setShowToast] = useState(false);
+  const [toastType, setToastType] = useState("");
+  const handleLogin = async (e: any) => {
+    e.preventDefault();
 
-  const handleLogin = async (e: React.FormEvent) => {
     try {
-      e.preventDefault();
-
       const result = await login(existingUser);
-
       if (result.status === "success") {
         router.push("/home");
-      } else {
-        alert(result.message);
+      } else if (result.status === "fail") {
+        setToastMessage(result.message);
+        setToastType("error");
       }
     } catch (err: any) {
-      alert(err.message);
+      setToastMessage(err.message);
+      setToastType("error");
+    } finally {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 7000);
+    }
+  };
+
+  const renderToastIcon = () => {
+    if (toastType === "success") {
+      return <HiCheck className={styles.successIcon} />;
+    } else if (toastType === "error") {
+      return <HiX className={styles.errorIcon} />;
     }
   };
 
   return (
     <div className={styles.containerClass}>
+      {showToast && (
+        <div className={styles.toastContainer}>
+          <Toast>
+            <div className={styles.toastClass}>{renderToastIcon()}</div>
+            <div className={styles.messageClass}>{toastMessage}</div>
+            <Toast.Toggle />
+          </Toast>
+        </div>
+      )}
+
       <div className={styles.leftDivClass}></div>
       <div className={styles.rightDivClass}>
         <div className={styles.card}>
@@ -115,5 +135,11 @@ const styles = {
   registerButton: "bg-gray-200 w-full",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
-  errorMessage: "text-red-500 text-center mt-2",
+  toastContainer: "fixed top-4 right-4 z-50",
+  toastClass:
+    "inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg",
+  iconClass: "h-5 w-5",
+  messageClass: "ml-3 text-sm font-normal",
+  successIcon: "h-7 w-7 text-green-200 rounded-lg",
+  errorIcon: "h-7 w-7 text-red-500 bg-red-200 rounded-lg",
 };
