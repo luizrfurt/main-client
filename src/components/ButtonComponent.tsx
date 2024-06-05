@@ -1,11 +1,11 @@
 import React from "react";
 import { Button } from "flowbite-react";
+import { palleteColors } from "./PaletteColorComponent";
 
 interface Props {
-  color: string;
+  color: keyof typeof palleteColors;
   size: string;
   type?: "button" | "submit" | "reset";
-  className?: string;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   children?: React.ReactNode;
 }
@@ -14,19 +14,14 @@ export const ButtonComponent: React.FC<Props> = ({
   color,
   size,
   type,
-  className,
   onClick,
   children,
 }) => {
+  const style = palleteColors[color];
+
   return (
     <div>
-      <Button
-        color={color}
-        size={size}
-        type={type}
-        className={className}
-        onClick={onClick}
-      >
+      <Button size={size} type={type} className={style} onClick={onClick}>
         {children}
       </Button>
     </div>

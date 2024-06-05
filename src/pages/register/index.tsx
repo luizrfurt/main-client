@@ -53,7 +53,7 @@ export default function Register() {
         }
       } else {
         setToastMessage(resultRegister.message);
-        setToastType("error")
+        setToastType("error");
       }
     } catch (err: any) {
       setToastMessage(err.message);
@@ -143,26 +143,29 @@ export default function Register() {
               />
             </div>
             <div className={styles.checkboxContainer}>
-              <Checkbox id="agree" />
-              <LabelComponent htmlFor="agree" className={styles.checkboxLabel}>
-                Aceito os&nbsp;
-                <Link
-                  href=""
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setOpenTerms(true);
-                  }}
-                  className={styles.termsLink}
-                >
-                  termos e condições.
-                </Link>
-              </LabelComponent>
+              <div>
+                <Checkbox id="agree" />
+              </div>
+              <div className="ml-2">
+                <LabelComponent htmlFor="agree" color="lprimary">
+                  Aceito os&nbsp;
+                  <Link
+                    href=""
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setOpenTerms(true);
+                    }}
+                    className={styles.termsLink}
+                  >
+                    termos e condições.
+                  </Link>
+                </LabelComponent>
+              </div>
             </div>
             <ButtonComponent
-              color="blue"
+              color="bprimary"
               size="sm"
               type="submit"
-              className={styles.enterButton}
               onClick={handleRegister}
             >
               Cadastrar
@@ -200,11 +203,10 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  enterButton: "bg-blue-900 w-full",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
   checkboxContainer: "flex items-center",
-  checkboxLabel: "flex items-center ml-2",
+  checkboxLabel: "",
   termsLink: "text-cyan-600 hover:underline dark:text-cyan-500",
   toastContainer: "fixed top-4 right-4 z-50",
   toastClass:

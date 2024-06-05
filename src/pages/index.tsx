@@ -89,10 +89,9 @@ export default function Index() {
               />
             </div>
             <ButtonComponent
-              color="blue"
+              color="bprimary"
               size="sm"
               type="submit"
-              className={styles.loginButton}
               onClick={handleLogin}
             >
               Entrar
@@ -102,11 +101,7 @@ export default function Index() {
             </Link>
             <hr className={styles.divider} />
             <Link href="/register" passHref>
-              <ButtonComponent
-                color="light"
-                size="sm"
-                className={styles.registerButton}
-              >
+              <ButtonComponent color="bsecondary" size="sm">
                 Cadastrar-se
               </ButtonComponent>
             </Link>
@@ -130,9 +125,7 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  loginButton: "bg-blue-900 w-full",
   forgotPassword: "text-blue-500 underline",
-  registerButton: "bg-gray-200 w-full",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
   toastContainer: "fixed top-4 right-4 z-50",
