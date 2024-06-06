@@ -10,9 +10,9 @@ export const palleteColors = {
   lsecondary: "flex items-center",
 
   //Link colors
-  unone: "",
-  uprimary: "",
-  usecondary: "",
+  unone: "text-black",
+  uprimary: "underline text-blue-600",
+  usecondary: "underline text-orange-600",
 
   //Checkbox colors
   cnone: "",
