@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { InputComponent } from "@/components/InputComponent";
+import { LinkComponent } from "@/components/LinkComponent";
 import { Toast } from "flowbite-react";
 import { HiX, HiCheck } from "react-icons/hi";
 import { login } from "../services/AuthServices";
@@ -96,15 +96,18 @@ export default function Index() {
             >
               Entrar
             </ButtonComponent>
-            <Link href="#" passHref legacyBehavior>
-              <a className={styles.forgotPassword}>Esqueci minha senha</a>
-            </Link>
+
+            <LinkComponent href="" color="uprimary">
+              Esqueci minha senha
+            </LinkComponent>
+
             <hr className={styles.divider} />
-            <Link href="/register" passHref>
+
+            <LinkComponent href="/register" color="unone">
               <ButtonComponent color="bsecondary" size="sm">
                 Cadastrar-se
               </ButtonComponent>
-            </Link>
+            </LinkComponent>
           </form>
           <footer className={styles.footer}>
             <p>&copy; 2024 Prime. Todos os direitos reservados.</p>
@@ -125,7 +128,6 @@ const styles = {
   form: "flex max-w-md flex-col gap-4",
   avatarContainer: "flex justify-center mb-4",
   avatar: "w-24 h-24 rounded-full",
-  forgotPassword: "text-blue-500 underline",
   divider: "my-4 border-b border-gray-300",
   footer: "mt-4 text-center text-gray-500",
   toastContainer: "fixed top-4 right-4 z-50",

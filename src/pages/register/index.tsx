@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Link from "next/link";
 import router from "next/router";
 import { Checkbox, Modal, Toast } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
 import { ButtonComponent } from "@/components/ButtonComponent";
-import { termsConditions } from "../../services/TermsConditionsServices";
 import { InputComponent } from "@/components/InputComponent";
+import { LinkComponent } from "@/components/LinkComponent";
 import { login, register } from "@/services/AuthServices";
+import { termsConditions } from "@/services/TermsConditionsServices";
 import { HiCheck, HiX } from "react-icons/hi";
 
 export default function Register() {
@@ -149,16 +149,16 @@ export default function Register() {
               <div className="ml-2">
                 <LabelComponent htmlFor="agree" color="lprimary">
                   Aceito os&nbsp;
-                  <Link
+                  <LinkComponent
                     href=""
+                    color="uprimary"
                     onClick={(e) => {
                       e.preventDefault();
                       setOpenTerms(true);
                     }}
-                    className={styles.termsLink}
                   >
-                    termos e condições.
-                  </Link>
+                    termos e condições
+                  </LinkComponent>
                 </LabelComponent>
               </div>
             </div>
