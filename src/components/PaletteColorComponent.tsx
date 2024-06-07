@@ -11,13 +11,13 @@ export const palleteColors = {
 
   //Link colors
   unone: "text-black",
-  uprimary: "underline text-blue-600",
-  usecondary: "underline text-orange-600",
+  uprimary: "hover:underline text-blue-600",
+  usecondary: "hover:underline text-orange-600",
 
   //Checkbox colors
-  cnone: "",
-  cpripary: "",
-  csecondary: "",
+  cnone: "cursor-pointer text-black focus:ring-white",
+  cprimary: "cursor-pointer text-blue-950 focus:ring-white",
+  csecondary: "cursor-pointer focus:ring-white",
 
   //Input colors
   inone: "",

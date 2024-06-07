@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import router from "next/router";
-import { Checkbox, Modal, Toast } from "flowbite-react";
+import { Modal, Toast } from "flowbite-react";
 import { LabelComponent } from "@/components/LabelComponent";
 import { ButtonComponent } from "@/components/ButtonComponent";
 import { InputComponent } from "@/components/InputComponent";
@@ -8,6 +8,7 @@ import { LinkComponent } from "@/components/LinkComponent";
 import { login, register } from "@/services/AuthServices";
 import { termsConditions } from "@/services/TermsConditionsServices";
 import { HiCheck, HiX } from "react-icons/hi";
+import { CheckBoxComponenet } from "@/components/CheckBoxComponent";
 
 export default function Register() {
   const [openTerms, setOpenTerms] = useState(false);
@@ -144,7 +145,7 @@ export default function Register() {
             </div>
             <div className={styles.checkboxContainer}>
               <div>
-                <Checkbox id="agree" />
+                <CheckBoxComponenet id="agree" color="cprimary" />
               </div>
               <div className="ml-2">
                 <LabelComponent htmlFor="agree" color="lprimary">
